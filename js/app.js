@@ -117,11 +117,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function checkLive(liveEpisodeName) {
   var container = document.getElementById("audio-container");
+  var name = document.getElementById("name");
   if (liveEpisodeName == "SPK - Wars of Islam" || liveEpisodeName == "Peder Mannerfelt - Nihilist 87" || liveEpisodeName == "Autechre - 9010171-121") {
     container.classList.add("red");
   } else {
     container.classList.remove("red");
   }
+  name.innerHTML = liveEpisodeName;
 }
 
 /***/ }),
