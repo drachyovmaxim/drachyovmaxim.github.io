@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   var player = document.getElementById("live-player");
   var play = document.getElementById("play");
   var pause = document.getElementById("pause");
-  var url = "https://dramax.out.airtime.pro:8000/dramax_a";
+  var url = "http://dramax.out.airtime.pro:8000/dramax_a";
   var pause = document.getElementById("pause");
 
   play.addEventListener("click", function(evt) {
