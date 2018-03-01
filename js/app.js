@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var player = document.getElementById("live-player");
   var play = document.getElementById("play");
   var pause = document.getElementById("pause");
-  var url = "http://dramax.out.airtime.pro:8000/dramax_a";
+  var url = "https://dramax.out.airtime.pro:8000/dramax_a";
   var pause = document.getElementById("pause");
 
   play.addEventListener("click", function (evt) {
@@ -101,13 +101,13 @@ document.addEventListener("DOMContentLoaded", function () {
     xhr.send();
   };
 
-  getJSON('http://dramax.airtime.pro/api/live-info-v2', function (err, data) {
+  getJSON('https://dramax.airtime.pro/api/live-info-v2', function (err, data) {
     var liveEpisodeName = data.tracks.current.name;
     checkLive(liveEpisodeName);
   });
 
   setInterval(function () {
-    getJSON('http://dramax.airtime.pro/api/live-info-v2', function (err, data) {
+    getJSON('https://dramax.airtime.pro/api/live-info-v2', function (err, data) {
       var liveEpisodeName = data.tracks.current.name;
       checkLive(liveEpisodeName);
       console.log(liveEpisodeName);
