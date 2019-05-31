@@ -1,35 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
-  <title>MX</title>
-<!--   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0019aa">
-  <meta name="apple-mobile-web-app-title" content="Future History">
-  <meta name="application-name" content="Future History">
-  <meta name="msapplication-TileColor" content="#0019aa">
-  <meta name="theme-color" content="#ffffff"> -->
-  <!-- <meta name="description" content="SEVER is the path to a decentralized future in the Arctic frontier."> -->
-  <!-- <meta property="og:title" content="SEVER"> -->
-  <!-- <meta property="og:url" content="http://sever.network/"> -->
-  <!-- <meta property="og:description" content="SEVER is the path to a decentralized future in the Arctic frontier."> -->
-  <!-- <meta property="og:image" content="/sever.jpg"> -->
-  <!-- <meta property="og:image:height" content="600"> -->
-  <!-- <meta property="og:image:width" content="331"> -->
-  <link rel="stylesheet" href="css/app.css" />
-</head>
-<body>
-  <div id="audio-container" class="audio">
-    <audio id="live-player" controls="" preload="none" type="audio/mpeg" style="visibility: hidden;"></audio>
-    <div id="name"></div>
-    <div id="play">play</div>
-    <div id="pause">pause</div>
-  </div>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
+    <title>mx</title>
+    <script src="https://static.tildacdn.com/js/jquery-1.10.2.min.js"></script>
+  </head>
+  <!-- <link href="/css/normalize.css" rel="stylesheet" type="text/css"> -->
+  <!-- <link href="/css/index-v3.css" rel="stylesheet" type="text/css"> -->
+  <body>
+    <form class="myForm">
+      <input type="range" name="price" min="400" max="4000" step="10">
+      <input type="text" name="phone">
+      <button class="btn" type="submit">submit</button>
+    </form>
+    <!-- <script src="/js/index.js"></script> -->
+    <script type="text/javascript">
+      $(document).ready(function() {
+        jQuery.extend({
+          getQueryParameters: function() {
+            var search = window.location.search;
 
-  <script src="js/app.js"></script>
-</body>
+            if (search !== undefined && search !== null && /\S/.test(search)) {
+              return search.replace(/(^\?)/, '');
+            } else {
+              return null;
+            }
+          }
+        });
+
+        window.handleSuccessSubmit = function($form) {
+          var orderFormUrl = 'https://app.blizkie.ru/users/sessions/new';
+          var searchParams = $.getQueryParameters();
+          var phoneNumber = $form.find('input[name="phone"]').first().val();
+
+          if (phoneNumber !== undefined && phoneNumber !== null && /\S/.test(phoneNumber)) {
+            phoneNumber = 'phone=' + phoneNumber.replace(/\D/g, '');
+            searchParams = searchParams ? searchParams + '&' + phoneNumber : phoneNumber;
+            window.location = [orderFormUrl, searchParams].join('?');
+          }
+        }
+
+        $('.myForm').each(function() {
+          // $(this).data('success-callback', 'window.handleSuccessSubmit');
+
+          $(this).bind('submit', function(){
+            var el = $(this);
+
+            $.ajax({
+              type: 'POST',
+              url: 'https://hooks.zapier.com/hooks/catch/3369268/v9oak0/',
+              data: $(this).serialize(), // object
+              encode: true
+            })
+            .success(function(data) {
+              window.handleSuccessSubmit(el);
+            });
+
+            //Prevent default form submit
+            return false;
+          });
+        });
+        
+        // Pixel (https://app.blizkie.ru)
+        var pixelParams = $.getQueryParameters();
+        
+        if (pixelParams === null) {
+          pixelParams = '?ref=' + encodeURIComponent(document.referrer);
+        } else {
+          pixelParams = '?' + pixelParams + '&ref=' + encodeURIComponent(document.referrer);
+        }
+
+        $('body').append(
+          '<img src="https://app.blizkie.ru/pixel.png' + pixelParams + '" width="1" height="1" />'
+        );
+      });
+    </script>
+    <script type="text/javascript" src = "https://postback.zeroredirect1.com/zppostback/67a2c321-aa38-11e7-87db-0e06c6fba698"></script>
+    <script type="text/javascript">window.dataLayer = window.dataLayer || [];</script>
+
+  </body>
 </html>
